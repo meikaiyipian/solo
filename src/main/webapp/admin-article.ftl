@@ -5,8 +5,6 @@
     </div>
     <div>
         <label>${content1Label}</label>
-    </div>
-    <div>
         <textarea id="articleContent" name="articleContent"
                   style="height: 500px;width:100%;"></textarea>
     </div>
@@ -20,10 +18,8 @@
         <label>${tags1WithTips1Label}</label>
         <input id="tag" type="text"/>
     </div>
-    <div>
+    <div class="comment-content">
         <label>${abstract1Label}</label>
-    </div>
-    <div>
         <textarea id="abstract" style="height: 200px;width: 100%;" name="abstract"></textarea>
     </div>
     <div>
@@ -40,7 +36,7 @@
     <div>
         <span class="signs">
             <label>${sign1Label}</label>
-            <button style="margin-left: 0px;" id="articleSign1">${signLabel} 1</button>
+            <button style="margin-left: 0px;" id="articleSign1" class="selected">${signLabel} 1</button>
             <button id="articleSign2">${signLabel} 2</button>
             <button id="articleSign3">${signLabel} 3</button>
             <button id="articleSign0">${noSignLabel}</button>

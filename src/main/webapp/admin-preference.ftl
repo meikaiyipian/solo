@@ -1,4 +1,4 @@
-<div id="tabPreference" class="sub-tabs">
+<div id="tabPreference" class="sub-tabs fn-clear">
     <ul>
         <li>
             <div id="tabPreference_config">
@@ -34,7 +34,7 @@
 </div>
 <div id="tabPreferencePanel" class="sub-tabs-main">
     <div id="tabPreferencePanel_config">
-        <table class="form" width="98%" cellpadding="0" cellspacing="9px">
+        <table class="form" width="100%" cellpadding="0" cellspacing="9px">
             <tbody>
                 <tr>
                     <td colspan="2" align="right">
@@ -114,25 +114,26 @@
         </table>
     </div>
     <div id="tabPreferencePanel_solo" class="none">
-        <table class="form" width="98%" cellpadding="0" cellspacing="9px">
+        <table class="form" width="100%" cellpadding="0" cellspacing="9px">
             <tbody>
                 <tr>
                     <th width="80px">
                         <label for="keyOfSolo">${keyOfSolo1Label}</label>
                     </th>
-                    <td width="160px">
+                    <td>
                         <input id="keyOfSolo" class="normalInput" type="text" readonly="readonly"/>
                     </td>
-                    <td>
-                        <!--                        <button onclick="admin.preference.update()">${updateLabel}</button>-->
-                        <label></label>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <a href="https://hacpai.com/article/1457158841475" target="_blank">${APILabel}</a>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
     <div id="tabPreferencePanel_setting" class="none">
-        <table class="form" width="98%" cellpadding="0" cellspacing="9px">
+        <table class="form" width="100%" cellpadding="0" cellspacing="9px">
             <tbody>
                 <tr>
                     <td colspan="2" align="right">
@@ -316,7 +317,7 @@
             </tbody>
         </table>
     </div>
-    <div id="tabPreferencePanel_skins" class="none">
+    <div id="tabPreferencePanel_skins" class="none form">
         <button onclick="admin.preference.update()" class="right">${updateLabel}</button>
         <div class="clear"></div>
         <div id="skinMain">
@@ -325,7 +326,7 @@
         <div class="clear"></div>
     </div>
     <div id="tabPreferencePanel_signs" class="none">
-        <table class="form" width="98%" cellpadding="0" cellspacing="9px">
+        <table class="form" width="100%" cellpadding="0" cellspacing="9px">
             <tbody>
                 <tr>
                     <th colspan="2">
@@ -365,7 +366,7 @@
         </table>
     </div>
     <div id="tabPreferencePanel_qiniu" class="none">
-        <table class="form" width="98%" cellpadding="0" cellspacing="9px">
+        <table class="form" width="100%" cellpadding="0" cellspacing="9px">
             <tbody>
                 <tr>
                     <th colspan="2">
@@ -373,7 +374,7 @@
                     </th>
                 </tr>
                 <tr>
-                    <th>
+                    <th width="120">
                         <label for="qiniuAccessKey">${accessKey1Label}</label>
                     </th>
                     <td>

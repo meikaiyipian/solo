@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2016, b3log.org & hacpai.com
+ * Copyright (c) 2010-2017, b3log.org & hacpai.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,7 +68,8 @@ import org.jsoup.Jsoup;
  * Article processor.
  *
  * @author <a href="http://88250.b3log.org">Liang Ding</a>
- * @version 1.4.2.15, Nov 20, 2015
+ * @author <a href="http://zephyr.b3log.org">Zephyr</a>
+ * @version 1.4.2.16, Nov 17, 2016
  * @since 0.3.1
  */
 @RequestProcessor

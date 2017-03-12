@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2016, b3log.org & hacpai.com
+ * Copyright (c) 2010-2017, b3log.org & hacpai.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -306,7 +306,7 @@ public class BlogProcessor {
 
         final JSONObject ret = new JSONObject();
         renderer.setJSONObject(ret);
-        final Set<String> tagTitles = new HashSet<String>();
+        final Set<String> tagTitles = new HashSet<>();
 
         final List<JSONObject> topTags = tagQueryService.getTopTags(10);
         for (final JSONObject topTag : topTags) {

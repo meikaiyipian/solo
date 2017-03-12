@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2016, b3log.org & hacpai.com
+ * Copyright (c) 2010-2017, b3log.org & hacpai.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
  *
  * @author <a href="http://vanessa.b3log.org">Liyuan Li</a>
  * @author <a href="http://88250.b3log.org">Liang Ding</a>
- * @version 1.2.3.5, Nov 2, 2015
+ * @version 1.2.3.7, Feb 18, 2017
  */
 var Page = function (tips) {
     this.currentCommentId = "";
@@ -368,12 +368,12 @@ $.extend(Page.prototype, {
         // otherelse use highlight
         // load css
         if (document.createStyleSheet) {
-            document.createStyleSheet(latkeConfig.staticServePath + "/js/lib/highlight/styles/default.css");
+            document.createStyleSheet(latkeConfig.staticServePath + "/js/lib/highlight.js-9.6.0/styles/default.css");
         } else {
-            $("head").append($("<link rel='stylesheet' href='" + latkeConfig.staticServePath + "/js/lib/highlight/styles/github.css'>"));
+            $("head").append($("<link rel='stylesheet' href='" + latkeConfig.staticServePath + "/js/lib/highlight.js-9.6.0/styles/github.css'>"));
         }
         $.ajax({
-            url: latkeConfig.staticServePath + "/js/lib/highlight/highlight.pack.js",
+            url: latkeConfig.staticServePath + "/js/lib/highlight.js-9.6.0/highlight.pack.js",
             dataType: "script",
             cache: true,
             success: function () {
@@ -499,7 +499,7 @@ $.extend(Page.prototype, {
         var tips = this.tips;
         try {
             $.ajax({
-                url: "http://rhythm.b3log.org:80/get-articles-by-tags.do?tags=" + tags
+                url: "https://rhythm.b3log.org/get-articles-by-tags.do?tags=" + tags
                         + "&blogHost=" + tips.blogHost + "&paginationPageSize=" + tips.externalRelevantArticlesDisplayCount,
                 type: "GET",
                 cache: true,
@@ -583,10 +583,11 @@ $.extend(Page.prototype, {
                 contentType: "application/json",
                 data: JSON.stringify(requestJSONObject),
                 success: function (result) {
+                    $("#submitCommentButton" + state).removeAttr("disabled");
                     if (!result.sc) {
                         $("#commentErrorTip" + state).html(result.msg);
-                        $("#comment" + state).val("").focus();
-                        $("#submitCommentButton" + state).removeAttr("disabled");
+                        $("#commentValidate" + state).val('');
+                        $("#captcha" + state).click();
                         if (!Util.isLoggedIn()) {
                             $("#captcha" + state).attr("src", latkeConfig.servePath + "/captcha.do?code=" + Math.random());
                         }
@@ -613,8 +614,11 @@ $.extend(Page.prototype, {
                         result.userName = Util.getUserName();
                     }
 
-                    that.addCommentAjax(addComment(result, state), state);
-                    $("#submitCommentButton" + state).removeAttr("disabled");
+                    if (typeof(addComment) === "undefined") { // https://github.com/b3log/solo/issues/12246
+                        that.addCommentAjax(result.cmtTpl, state);
+                    } else { // 1.9.0 向后兼容
+                        that.addCommentAjax(addComment(result, state), state);
+                    }
                 }
             });
         }

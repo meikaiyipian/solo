@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2016, b3log.org & hacpai.com
+ * Copyright (c) 2010-2017, b3log.org & hacpai.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ public final class Sitemap {
     /**
      * Start document.
      */
-    private static final String START_DOCUMENT = "<?xml version='1.0' encoding='UTF-8'?>";
+    private static final String START_DOCUMENT = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 
     /**
      * Start URL set element.
@@ -53,7 +53,7 @@ public final class Sitemap {
     /**
      * URLs.
      */
-    private List<URL> urls = new ArrayList<URL>();
+    private List<URL> urls = new ArrayList<>();
 
     /**
      * Adds the specified url.

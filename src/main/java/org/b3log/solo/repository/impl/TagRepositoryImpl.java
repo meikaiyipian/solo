@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2016, b3log.org & hacpai.com
+ * Copyright (c) 2010-2017, b3log.org & hacpai.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,10 @@
  */
 package org.b3log.solo.repository.impl;
 
-
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.inject.Inject;
 import org.b3log.solo.model.Tag;
@@ -32,18 +34,24 @@ import org.b3log.latke.repository.annotation.Repository;
 import org.b3log.latke.util.CollectionUtils;
 import org.b3log.solo.repository.TagArticleRepository;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
-
 
 /**
  * Tag repository.
  *
  * @author <a href="http://88250.b3log.org">Liang Ding</a>
- * @version 1.0.1.1, Nov 29, 2011
+ * @version 1.1.1.1, Nov 23, 2016
  * @since 0.3.1
  */
 @Repository
 public class TagRepositoryImpl extends AbstractRepository implements TagRepository {
+
+    /**
+     * Tag-Article relation repository.
+     */
+    @Inject
+    private TagArticleRepository tagArticleRepository;
 
     /**
      * Public constructor.
@@ -51,12 +59,6 @@ public class TagRepositoryImpl extends AbstractRepository implements TagReposito
     public TagRepositoryImpl() {
         super(Tag.TAG);
     }
-
-    /**
-     * Tag-Article relation repository.
-     */
-    @Inject
-    private TagArticleRepository tagArticleRepository;
 
     @Override
     public JSONObject getByTitle(final String tagTitle) throws RepositoryException {
@@ -75,12 +77,15 @@ public class TagRepositoryImpl extends AbstractRepository implements TagReposito
     @Override
     public List<JSONObject> getMostUsedTags(final int num) throws RepositoryException {
         final Query query = new Query().addSort(Tag.TAG_PUBLISHED_REFERENCE_COUNT, SortDirection.DESCENDING).setCurrentPageNum(1).setPageSize(num).setPageCount(
-            1);
+                1);
 
         final JSONObject result = get(query);
         final JSONArray array = result.optJSONArray(Keys.RESULTS);
 
-        return CollectionUtils.jsonArrayToList(array);
+        List<JSONObject> tagJoList = CollectionUtils.jsonArrayToList(array);
+        sortJSONTagList(tagJoList);
+
+        return tagJoList;
     }
 
     @Override
@@ -101,10 +106,24 @@ public class TagRepositoryImpl extends AbstractRepository implements TagReposito
 
     /**
      * Sets tag article repository with the specified tag article repository.
-     * 
+     *
      * @param tagArticleRepository the specified tag article repository
      */
     public void setTagArticleRepository(final TagArticleRepository tagArticleRepository) {
         this.tagArticleRepository = tagArticleRepository;
+    }
+
+    private void sortJSONTagList(final List<JSONObject> tagJoList) throws RepositoryException {
+        Collections.sort(tagJoList, new Comparator<JSONObject>() {
+            @Override
+            public int compare(final JSONObject o1, final JSONObject o2) {
+                try {
+                    return Collator.getInstance(java.util.Locale.CHINA)
+                            .compare(o1.getString(Tag.TAG_TITLE), o2.getString(Tag.TAG_TITLE));
+                } catch (final JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 }

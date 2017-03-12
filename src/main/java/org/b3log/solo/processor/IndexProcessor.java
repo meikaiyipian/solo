@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2016, b3log.org & hacpai.com
+ * Copyright (c) 2010-2017, b3log.org & hacpai.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -180,7 +180,9 @@ public class IndexProcessor {
             dataModel.putAll(langs);
             final JSONObject preference = preferenceQueryService.getPreference();
 
+            filler.fillBlogHeader(request, response, dataModel, preference);
             filler.fillBlogFooter(request, dataModel, preference);
+            Keys.fillServer(dataModel);
             Keys.fillRuntime(dataModel);
             filler.fillMinified(dataModel);
         } catch (final ServiceException e) {

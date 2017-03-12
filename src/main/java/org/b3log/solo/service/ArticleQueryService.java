@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2016, b3log.org & hacpai.com
+ * Copyright (c) 2010-2017, b3log.org & hacpai.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,6 +51,7 @@ import org.b3log.solo.repository.ArticleRepository;
 import org.b3log.solo.repository.TagArticleRepository;
 import org.b3log.solo.repository.TagRepository;
 import org.b3log.solo.repository.UserRepository;
+import org.b3log.solo.util.Emotions;
 import org.b3log.solo.util.Markdowns;
 import org.b3log.solo.util.comparator.Comparators;
 import org.json.JSONArray;
@@ -62,7 +63,8 @@ import org.json.JSONObject;
  *
  * @author <a href="http://88250.b3log.org">Liang Ding</a>
  * @author <a href="http://blog.sweelia.com">ArmstrongCN</a>
- * @version 1.1.2.4, Nov 20, 2015
+ * @author <a href="http://zephyr.b3log.org">Zephyr</a>
+ * @version 1.1.3.4, Nov 17, 2016
  * @since 0.3.5
  */
 @Service
@@ -542,9 +544,6 @@ public class ArticleQueryService {
                 article.put(ARTICLE_CREATE_TIME, ((Date) article.get(ARTICLE_CREATE_DATE)).getTime());
                 article.put(ARTICLE_UPDATE_TIME, ((Date) article.get(ARTICLE_UPDATE_DATE)).getTime());
 
-                // Markdown to HTML for content and abstract
-                markdown(article);
-
                 // Remove unused properties
                 for (int j = 0; j < excludes.length(); j++) {
                     article.remove(excludes.optString(j));
@@ -607,9 +606,6 @@ public class ArticleQueryService {
 
                 article.put(ARTICLE_CREATE_TIME, ((Date) article.get(ARTICLE_CREATE_DATE)).getTime());
 
-                // Markdown to HTML for content and abstract
-                markdown(article);
-
                 ret.add(article);
             }
 
@@ -666,9 +662,6 @@ public class ArticleQueryService {
                 }
 
                 article.put(ARTICLE_CREATE_TIME, ((Date) article.get(ARTICLE_CREATE_DATE)).getTime());
-
-                // Markdown to HTML for content and abstract
-                markdown(article);
 
                 ret.add(article);
             }
@@ -916,9 +909,6 @@ public class ArticleQueryService {
 
                 article.put(ARTICLE_CREATE_TIME, ((Date) article.get(ARTICLE_CREATE_DATE)).getTime());
 
-                // Markdown to HTML for content and abstract
-                markdown(article);
-
                 ret.add(article);
             }
 
@@ -964,9 +954,10 @@ public class ArticleQueryService {
             } else if ("CodeMirror-Markdown".equals(article.optString(ARTICLE_EDITOR_TYPE))) {
                 // Markdown to HTML for content and abstract
                 Stopwatchs.start("Get Article Content [Markdown]");
-                final String content = article.optString(ARTICLE_CONTENT);
-
-                article.put(ARTICLE_CONTENT, Markdowns.toHTML(content));
+                String content = article.optString(ARTICLE_CONTENT);
+                content = Emotions.convert(content);
+                content = Markdowns.toHTML(content);
+                article.put(ARTICLE_CONTENT, content);
                 Stopwatchs.end();
             }
 
@@ -1001,16 +992,19 @@ public class ArticleQueryService {
             Stopwatchs.start("Markdown Article[id=" + article.optString(Keys.OBJECT_ID) + "]");
 
             Stopwatchs.start("Content");
-            final String content = article.optString(ARTICLE_CONTENT);
-
-            article.put(ARTICLE_CONTENT, Markdowns.toHTML(content));
+            String content = article.optString(ARTICLE_CONTENT);
+            content = Emotions.convert(content);
+            content = Markdowns.toHTML(content);
+            article.put(ARTICLE_CONTENT, content);
             Stopwatchs.end();
 
-            final String abstractContent = article.optString(ARTICLE_ABSTRACT);
+            String abstractContent = article.optString(ARTICLE_ABSTRACT);
 
             if (!Strings.isEmptyOrNull(abstractContent)) {
                 Stopwatchs.start("Abstract");
-                article.put(ARTICLE_ABSTRACT, Markdowns.toHTML(abstractContent));
+                abstractContent = Emotions.convert(abstractContent);
+                abstractContent = Markdowns.toHTML(abstractContent);
+                article.put(ARTICLE_ABSTRACT, abstractContent);
                 Stopwatchs.end();
             }
 

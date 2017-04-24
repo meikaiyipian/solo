@@ -27,7 +27,8 @@
 
 Solo 沉淀至今的**每一个功能你应该都会用到**。我们不会将只有“20%”用户使用的功能添加进来，只有这样才能保持博客系统本该有的纯净，足够轻量才能带来简约的使用体验。
 
-* Markdown / TinyMCE / KindEditor
+* Markdown / TinyMCE / KindEditor / Emoji
+* [聚合分类](https://github.com/b3log/solo/issues/12256) / 标签
 * 自定义导航（页面、链接）
 * 草稿夹
 * 评论/回复邮件提醒
@@ -60,11 +61,7 @@ JDK 环境准备好之后[下载](http://pan.baidu.com/share/link?shareid=541735
 * Windows: `java -cp WEB-INF/lib/*;WEB-INF/classes org.b3log.solo.Starter`
 * Unix-like: `java -cp WEB-INF/lib/*:WEB-INF/classes org.b3log.solo.Starter`
 
-执行完成后顺利的话你就可以看到 Solo 的初始化界面了 :tada: 
-
-* 详细的配置请浏览[用户指南](https://github.com/b3log/solo/wiki/standalone_mode)
-* 默认只有两套皮肤，如果你需要更多的皮肤，请到 [solo-skins](https://github.com/b3log/solo-skins) 获取
-* 如果你碰到问题，请提 [issue](https://github.com/b3log/solo/issues/new) 或到[社区](https://hacpai.com/tag/Solo)发帖，我们会尽量在第一时间帮助你解决问题
+**更多细节请参考 [Solo 用户指南](https://hacpai.com/article/1492881378588)。**
 
 另外，如果你想用 Solo 但又不想自己维护服务器，那可以尝试购买我们搭建好的 Solo 直接[使用](http://b3log.org/services/#solo)。
 
@@ -80,11 +77,11 @@ JDK 环境准备好之后[下载](http://pan.baidu.com/share/link?shareid=541735
 * 统一规范的编码风格
 * 完善的 javadoc 注释
 * 严格的分支、缺陷追踪管理
-* 不断完善的单元测试用例
+* 不断完善的测试用例、持续集成
 
 ## 文档
 
-* [用户指南](https://github.com/b3log/solo/wiki/standalone_mode)：安装、配置、常见问题
+* [用户指南](https://hacpai.com/article/1492881378588)：安装、配置、备份以及常见问题
 * [开发指南](https://github.com/b3log/solo/wiki/Pre_dev)：开发环境、项目结构、框架说明
 * [皮肤开发](https://github.com/b3log/solo/wiki/Develop_steps)：开发步骤、模版变量
 * [插件开发](https://docs.google.com/document/pub?id=15H7Q3EBo-44v61Xp_epiYY7vK_gPJLkQaT7T1gkE64w&pli=1)：插件机制、处理流程
@@ -128,6 +125,7 @@ Solo 的诞生离不开以下开源项目：
 * [Jetty](https://github.com/eclipse/jetty.project)：轻量级的 Java Web 容器
 * [Latke](https://github.com/b3log/latke)：简洁高效的 Java Web 框架 
 * [NetBeans](https://netbeans.org)：全宇宙暂时排名第三的 IDE
+* [IntelliJ IDEA](https://www.jetbrains.com/idea)：全宇宙暂时排名第二的 IDE
 
 ----
 
@@ -200,6 +198,7 @@ Logo 征集中....
 
 
 ### 社区贡献的皮肤
+
 * [bootstyle](https://github.com/b3log/solo-third-skins/tree/master/bootstyle)
 ![bootstyle](https://github.com/b3log/solo-third-skins/blob/master/skin-preview/bootstyle.jpg?raw=true)
 
